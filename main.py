@@ -238,10 +238,14 @@ async def summary(interaction: discord.Interaction):
     embed.add_field(name="รายจ่ายรวม", value=f"{total_expense:,.2f} บาท", inline=False)
     embed.add_field(name="เงินคงเหลือ", value=f"{balance:,.2f} บาท", inline=False)
     embed.add_field(name="5 รายการล่าสุด", value="\n".join(last_entries) if last_entries else "-", inline=False)
+    embed.add_field(name="Google Sheets", value=f"[เปิดดูรายละเอียด]({https://docs.google.com/spreadsheets/d/1NHWdhr9tixhoRqWcl3pmqYhFRkHYiepcmKEDoXA9ICA/edit?usp=sharing})", inline=False)
 
     channel = bot.get_channel(REPORT_CHANNEL_ID)
+    # สร้างข้อความที่จะ mention role (ใส่ <@&ROLE_ID>)
+    role_mention = f"<@&{1331677856484298924}>"
+
     if channel:
-        await channel.send(embed=embed)
+       await channel.send(content=role_mention, embed=embed)
 
     await interaction.followup.send("✅ ส่งสรุปแล้วที่ห้องสรุป", ephemeral=True)
 
